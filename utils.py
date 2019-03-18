@@ -1,3 +1,4 @@
+import idaapi
 import struct
 from idaapi import get_segm_by_name, hasRef, getFlags, opinfo_t, refinfo_t,\
 get_32bit, get_64bit, get_imagebase, get_byte

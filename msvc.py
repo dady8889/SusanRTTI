@@ -1,5 +1,6 @@
-from idaapi import get_struc_id, BADADDR, del_struc, get_struc, add_struc, add_struc_member, FF_DATA, FF_DWRD, FF_0OFF, get_struc_size, FF_ASCI, do_unknown_range, DOUNK_DELNAMES, doStruct, get_member_by_name, get_32bit, get_ascii_contents, demangle_name, doDwrd, op_offset
+from idaapi import BADADDR, FF_DATA, FF_DWRD, FF_0OFF, get_struc_size, FF_ASCI, do_unknown_range, DOUNK_DELNAMES, doStruct, get_member_by_name, get_32bit, get_ascii_contents, demangle_name, doDwrd, op_offset
 from idc import *
+from ida_struct import get_struc_id, del_struc, get_struc, add_struc, add_struc_member
 
 from utils import utils
 u = utils()
