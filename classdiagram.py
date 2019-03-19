@@ -1,12 +1,14 @@
 from idaapi import GraphViewer, askfile_c
+from idc import jumpto
 
 # The  below will only be displayed as bases
 ignore_namespaces = ("std", "type_info")
 
 class ClassDiagram(GraphViewer):
 
-    def __init__(self, title, classes):
+    def __init__(self, title, classes, vtables):
         self.classes = self.transitive_reduction(classes)
+        self.vtables = vtables
         GraphViewer.__init__(self, title)
 
     def transitive_reduction(self, graph):
@@ -97,4 +99,14 @@ class ClassDiagram(GraphViewer):
       if not GraphViewer.Show(self):
           return False
       self.cmd_dot = self.AddCommand("Export DOT", "F2")
+      return True
+
+    def OnDblClick(self, node_id):
+      className = self[node_id];
+      if className in self.vtables:
+        address = self.vtables[className];
+        jumpto(address)
+        print "VTable for " + className + " is located at " + hex(address)[:-1]
+      else:
+        print "VTable for " + className + " has not been found"
       return True

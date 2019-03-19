@@ -13,8 +13,8 @@ from msvc import run_msvc
 from gcc import run_gcc
 from classdiagram import ClassDiagram
 
-def show_classes(classes):
-    c = ClassDiagram("Class Diagram", classes)
+def show_classes(classes, vtables):
+    c = ClassDiagram("Class Diagram", classes, vtables)
     c.Show()
 
 def isGcc():
@@ -24,9 +24,19 @@ def isGcc():
 def main():
     print "Starting ClassInformerPython"
     if autoIsOk():
-        classes = run_gcc() if isGcc() else run_msvc()
+        vtables = {}
+
+        if isGcc():
+          classes = run_gcc()
+        else:
+          classes, vtables = run_msvc()
+
+        print "VTables:"
+        print vtables
+        print "Classes:"
         print classes
-        show_classes(classes)
+
+        show_classes(classes, vtables)
     else:
         print "Take it easy, man"
     print "Done"

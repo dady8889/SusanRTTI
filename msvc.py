@@ -6,6 +6,7 @@ from utils import utils
 u = utils()
 
 classes = {}
+vtables = {}
 
 class RTTIStruc:
     tid = 0
@@ -55,8 +56,10 @@ class RTTICompleteObjectLocator(RTTIStruc):
                 rchd = RTTIClassHierarchyDescriptor(classHierarchyDes)
                 # filter out None entries
                 rchd.bases = filter(lambda x: x, rchd.bases)
-                classes[strip(rtd.class_name)] = [strip(b) for b in rchd.bases]
-                MakeNameEx(vtable, "vtable__" + strip(rtd.class_name), SN_NOWARN)
+                className = strip(rtd.class_name)
+                classes[className] = [strip(b) for b in rchd.bases]
+                vtables[className] = vtable
+                MakeNameEx(vtable, "vtable__" + className, SN_NOWARN)
             else:
                 # if the RTTITypeDescriptor doesn't have a valid name for us to
                 # read, then this wasn't a valid RTTICompleteObjectLocator
@@ -158,4 +161,4 @@ def run_msvc():
             if u.within(col, u.valid_ranges):
                 rcol = RTTICompleteObjectLocator(col, vtable)
     u.add_missing_classes(classes)
-    return classes
+    return classes, vtables
