@@ -1,4 +1,4 @@
-# SusanRTTI #
+# SusanRTTI for IDA 7.0+ #
 #### Another RTTI Parsing IDA plugin ####
 
 ### Features ###
